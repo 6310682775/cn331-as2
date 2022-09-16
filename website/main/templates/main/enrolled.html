@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %} {% block title %}Home Page{% endblock %} 
+{% block content %}
+<h1>Subject</h1>
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">sub_code</th>
+            <th scope="col">sub_name</th>
+            <th scope="col">semester</th>
+            <th scope="col">year</th>
+            <th scope="col">total</th>
+            <th scope="col">available</th>
+            <th scope="col">register</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subject in enrolled_subject %}
+            <tr>
+                <td> {{ subject.sub_code }}</td>
+                <td> {{ subject.sub_name }}</td>
+                <td> {{ subject.semester }}</td>
+                <td> {{ subject.year }}</td>
+                <td> {{ subject.total }}</td>
+                <td> {{ subject.available }}</td>
+                <td> 
+                    <form action="{% url 'drop' subject.sub_code %}" method="POST" >
+                        {% csrf_token %}    
+                        <input type="submit" value="drop">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
