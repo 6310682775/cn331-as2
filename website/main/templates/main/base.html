@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% load bootstrap_icons %}
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,6 +12,7 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}" />
     <title>{% block title %}My site{% endblock %}</title>
   </head>
   <body>
@@ -18,13 +21,13 @@
         <div>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/home"> Home </a>
+              <a class="nav-link" href="/home"> {% bs_icon 'house' size='1.5em' %} Home </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/enrollSub"> enroll </a>
+              <a class="nav-link" href="/enrollSub"> {% bs_icon 'pen' size='1.5em' %} Enroll </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/enrolled"> enrolled </a>
+              <a class="nav-link" href="/enrolled"> {% bs_icon 'eye' size='1.5em' %} Enrolled </a>
             </li>
           </ul>
         </div>
@@ -33,18 +36,17 @@
             {% if user.is_authenticated %}
             <span class="navbar-text">Logged in as {{user.username}} |</span>
             <li class="nav-item">
-              <a class="nav-link" href="/logout"> logout </a>
+              <a class="nav-link" href="/logout"> Logout {% bs_icon 'box-arrow-in-right' %} </a>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="/login"> Login </a>
+              <a class="nav-link" href="/login"> Login{% bs_icon 'box-arrow-in-left' %} </a>
             </li>
             {% endif %}
           </ul>
         </div>
       </div>
     </nav>
-
     <div class="container-fluid">
       {% include 'common/messages.html' %} {% block content %} {% endblock %}
     </div>

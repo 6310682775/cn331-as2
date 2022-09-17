@@ -1,0 +1,28 @@
+body {
+    background-color: white;
+  }
+.center {
+    text-align: center;
+}
+
+.enroll_button {
+    border-style: none;
+    background-color: rgba(0,0,0,0.5)white;
+}
+
+.login {
+    text-align: center;
+    margin: auto;
+    width: 300px;
+    padding: 10px;
+    
+}
+
+* {
+    font-family: "Times New Roman", Times, serif;
+}
+
+#id {
+    text-align: center;
+}
+
