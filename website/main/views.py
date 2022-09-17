@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from .models import Subject , Student
+from .models import Subject
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -15,13 +15,13 @@ def home(request):
 def enrollSub(request):
     subject_list = Subject.objects.all()
     return render(request, 'main/enrollSub.html',  {'subject_list': subject_list,
-    "not_enroll_subject": Subject.objects.exclude(enrolled_student = User.objects.get(pk=request.user.username)),
-    "student_account" : User.objects.get(pk=request.user.username)})
+    "not_enroll_subject": Subject.objects.exclude(enrolled_student = User.objects.get(username=request.user.username)) ,
+    "student_account" : User.objects.filter(username=request.user.username)})
 
 @login_required(login_url="/login")
 def enroll_subject(request, sub_code):
     if request.method == "POST":
-        student = User.objects.get(pk=request.user.username)
+        student = User.objects.get(username=request.user.username)
         subject = Subject.objects.get(pk=sub_code)
         subject.enrolled_student.add(student)
         if(student in subject.enrolled_student.all()):      
@@ -36,7 +36,7 @@ def enroll_subject(request, sub_code):
 @login_required(login_url="/login")
 def drop(request, sub_code):
     if request.method == "POST":
-        student = User.objects.get(pk=request.user.username)
+        student = User.objects.get(username=request.user.username)
         subject = Subject.objects.get(pk=sub_code)
         subject.enrolled_student.remove(student)
         if(student not in subject.enrolled_student.all()):      
@@ -53,6 +53,6 @@ def drop(request, sub_code):
 def enrolled(request):
     subject_list = Subject.objects.all()
     return render(request, 'main/enrolled.html',  {'subject_list': subject_list,
-    "enrolled_subject": Subject.objects.filter(enrolled_student = User.objects.get(pk=int(request.user.username))
+    "enrolled_subject": Subject.objects.filter(enrolled_student = User.objects.get(username=request.user.username)
 )})
 
