@@ -82,13 +82,13 @@ if 'test' in sys.argv:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'd2mkol8q2cat6g',
-            'USER' : 'vkiymadniqrgoz',
-            'PASSWORD' : '50839a1f47629790483b75090bee7112dc301cdaefb9ca43c0f17571fa927662',
-            'HOST' : 'ec2-3-219-229-143.compute-1.amazonaws.com',
-            'PORT' : '5432',
-            'TEST' : {
-                'NAME': 'd2mkol8q2cat6g', #This is an important entry
+            'NAME': 'd6m9hsrle5c1em',
+            'USER': 'djzvganllfxuur',
+            'PASSWORD': 'da61afd044659e764713ee70789069027ad82ac3b3ccf8ea118f04c95f8edd27',
+            'HOST': 'ec2-3-214-2-141.compute-1.amazonaws.com',
+            'PORT': 5432,
+            'TEST': {
+                'NAME': 'd6m9hsrle5c1em', #This is an important entry
             }
         }
     }
