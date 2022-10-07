@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -77,17 +77,36 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+if 'test' in sys.argv:
+    #Configuration for test database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'd2mkol8q2cat6g',
+            'USER' : 'vkiymadniqrgoz',
+            'PASSWORD' : '50839a1f47629790483b75090bee7112dc301cdaefb9ca43c0f17571fa927662',
+            'HOST' : 'ec2-3-219-229-143.compute-1.amazonaws.com',
+            'PORT' : '5432',
+            'TEST' : {
+                'NAME': 'd2mkol8q2cat6g', #This is an important entry
+            }
+        }
+    }
+else:
+  #Default configuration
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dabhk4k5pftq98',
         'USER' : 'vprxlwvcjmmhkj',
         'PASSWORD' : 'cbd49053c388c6e8101b62254fe1f3da48ccc97e15a42b396b1ec16cf987a03d',
         'HOST' : 'ec2-34-194-40-194.compute-1.amazonaws.com',
-        'PORT' : '5432'
+        'PORT' : '5432',
+        'TEST' : {
+                'NAME': 'dabhk4k5pftq98',
+        }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

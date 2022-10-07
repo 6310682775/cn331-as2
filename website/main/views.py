@@ -23,7 +23,12 @@ def enroll_subject(request, sub_code):
     if request.method == "POST":
         student = User.objects.get(username=request.user.username)
         subject = Subject.objects.get(pk=sub_code)
-        subject.enrolled_student.add(student)
+        if(subject.is_subject_available()):
+            subject.enrolled_student.add(student)
+        else:
+            messages.error(request, "SUBJECT IS FULL")
+            return redirect("/enrollSub")  
+
         if(student in subject.enrolled_student.all()):      
             subject.amount_enrolled_student = subject.amount_enrolled_student + 1
             subject.save()
@@ -39,6 +44,7 @@ def drop(request, sub_code):
         student = User.objects.get(username=request.user.username)
         subject = Subject.objects.get(pk=sub_code)
         subject.enrolled_student.remove(student)
+
         if(student not in subject.enrolled_student.all()):      
             subject.amount_enrolled_student = subject.amount_enrolled_student - 1
             subject.save()

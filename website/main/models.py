@@ -17,13 +17,17 @@ class Subject(models.Model):
                                   MaxValueValidator(3)],default=1)
     amount = models.IntegerField(validators=[MinValueValidator(0),
                                   MaxValueValidator(9999)])
+    enrolled_student = models.ManyToManyField(User, blank=True, related_name="Subject")
     amount_enrolled_student = models.IntegerField(validators=[MinValueValidator(0),
-                                  MaxValueValidator(9999)],default=0)
+                                  MaxValueValidator(9999)],default= 0)
     available = models.BooleanField(default=True)
-    enrolled_student = models.ManyToManyField(User, blank=True, related_name="Subject")  
 
     def __str__(self):
         return f"{self.sub_code} {self.sub_name}  "
+
+    def is_subject_available(self):
+        return self.enrolled_student.count() < self.amount
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True,on_delete=models.CASCADE)
